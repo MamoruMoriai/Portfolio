@@ -1,6 +1,6 @@
 <template>
   <div class="careerDetailForm">
-    <h1>職務経歴詳細フォーム</h1>
+    <h1>職務経歴詳細入力フォーム</h1>
     <div class="form">
       <form action="" method="post">
         <div>
