@@ -7,7 +7,6 @@
     </div>
   
     <img alt="Vue logo" src="../assets/logo.png">
-    <CareerDetail msg="Welcome to CareerDetail!!"/>
     <HelloWorld msg="Welcome to Your Vue.js App!!"/>
     
     <div class="careerSummary">
