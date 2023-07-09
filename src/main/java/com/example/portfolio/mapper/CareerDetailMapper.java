@@ -13,4 +13,10 @@ public interface CareerDetailMapper {
 	
 	CareerDetailEntity search(int id);
 	
+	CareerDetailEntity createCareerDetail(CareerDetailEntity careerDetail);
+	
+	CareerDetailEntity updateCareerDetail(CareerDetailEntity careerDetail);
+	
+	CareerDetailEntity deleteCareerDetail(int id);
+	
 }

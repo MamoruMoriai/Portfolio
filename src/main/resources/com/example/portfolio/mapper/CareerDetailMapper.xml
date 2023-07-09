@@ -7,4 +7,31 @@
 	<select id="search" resultType="com.example.portfolio.entity.CareerDetailEntity">
 		SELECT * FROM career_details WHERE id = #{id}
 	</select>
+	<select id="createCareerDetail" resultType="com.example.portfolio.entity.CareerDetailEntity">
+		INSERT INTO career_details (
+			is_external,
+			from_date,
+			to_date,
+			title,
+			content
+		) VALUES (
+			#{careerDetail.externalFlg},
+			#{careerDetail.fromDate},
+			#{careerDetail.toDate},
+			#{careerDetail.title},
+			#{careerDetail.content}
+		)
+	</select>
+	<select id="updateCareerDetail" resultType="com.example.portfolio.entity.CareerDetailEntity">
+		UPDATE career_details SET (
+			is_external = #{careerDetail.externalFlg},
+			from_date = #{careerDetail.fromDate},
+			to_date = #{careerDetail.toDate},
+			title = #{careerDetail.title},
+			content = #{careerDetail.content}
+		)
+	</select>
+	<select id="deleteCareerDetail" resultType="com.example.portfolio.entity.CareerDetailEntity">
+		DELETE FROM career_details WHERE id = #{id}
+	</select>
 </mapper>

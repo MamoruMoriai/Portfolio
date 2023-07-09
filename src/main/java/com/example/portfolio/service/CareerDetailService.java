@@ -22,4 +22,16 @@ public class CareerDetailService {
 		return careerDetailMapper.search(id);
 	}
 	
+	public void createCareerDetail(CareerDetailEntity cde) {
+		careerDetailMapper.createCareerDetail(cde);
+	}
+	
+	public void updateCareerDetail(CareerDetailEntity cde) {
+		careerDetailMapper.updateCareerDetail(cde);
+	}
+	
+	public void deleteCareerDetail(int id) {
+		careerDetailMapper.deleteCareerDetail(id);
+	}
+	
 }
