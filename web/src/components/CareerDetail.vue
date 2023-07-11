@@ -1,20 +1,17 @@
 <template>
-  <div class="careerDitail">
-      
-    <div v-for="value in careerDetails" v-bind:key='value'>
-      
-      <div class="card" style="width: 18rem;">
-        <img src="" class="card-img-top" alt="">
+
+  <div class="container">
+    <div class="row">
+      <div class="card btn" style="width: 200px;" v-for="item in careerDetails" :key="item.id" v-on:click="selectedCareerDetail()">
+        <img src="https://placehold.jp/250x200.png" class="card-img-top">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <h5 class="card-title">{{ item.title }}</h5>
+          <p class="card-text">{{ item.fromDate }} ～ {{ item.toDate }}</p>
         </div>
       </div>
-      
     </div>
-    
   </div>
+  
 </template>
 
 <script>
@@ -37,6 +34,9 @@ export default {
       }).catch(error => {
         console.log(error)
       })
+    },
+    selectedCareerDetail() {
+      console.log("クリックされたよ");
     }
   },
   created() {
@@ -47,18 +47,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+  
+  .row {
+    margin: auto;
+    width: 60%;
+  }
+  
+  .card {
+    margin: 10px;
+  }
+  
+  .btn {
+    padding: 0;
+  }
+  
 </style>
