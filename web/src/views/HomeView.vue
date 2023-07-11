@@ -3,7 +3,7 @@
   <div class="home">
   
     <div class="login">
-      <button class="loginBtn">ログイン</button>
+      <button class="btn btn-primary">ログイン</button>
     </div>
       
     <div class="careerSummary article">
