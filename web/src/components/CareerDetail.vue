@@ -1,14 +1,37 @@
 <template>
-  <div class="careerDetail">
-    <h1>{{ msg }}</h1>
+  <div class="careerDitail">
+      
+    <div v-for="value in careerDetails" v-bind:key='value'>
+      {{ value }}
+    </div>
+    
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'CareerDetail',
-  props: {
-    msg: String
+  name: 'careerDetail',
+  props: {},
+  data() {
+    return {
+      careerDetails: []
+    }
+  },
+  methods: {
+    getCareerDetails() {
+      const path = 'http://localhost:8080/test'
+      axios.get(path).then(response => {
+        this.careerDetails = response.data
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    }
+  },
+  created() {
+    this.getCareerDetails()
   }
 }
 </script>

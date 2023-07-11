@@ -5,60 +5,59 @@
     <div class="login">
       <button class="loginBtn">ログイン</button>
     </div>
-  
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App!!"/>
-    
-    <div class="careerSummary">
-      <label class="articleTitle">職務経歴概要</label>
+      
+    <div class="careerSummary article">
+      <div class="articleTitle">職務経歴概要</div>
       <article class="articleContent">
-        専修大学ネットワーク情報学部卒業後、株式会社エルパに入社し、
-        システムエンジニアとして3年半従事しました。
-        入社後は業務システム開発を主業として、Ｗｅｂアプリケーションやストアドプロシージャ、
-        バッチプログラムやシミュレーションモデルの開発をしました。
+        専修大学ネットワーク情報学部卒業後、株式会社エルパに入社し、システムエンジニアとして3年半従事しました。入社後は業務システム開発を主業として、Ｗｅｂアプリケーションやストアドプロシージャ、バッチプログラムやシミュレーションモデルの開発をしました。
         
-        専修大学ネットワーク情報学部 ： ネットワーク情報学部｜専修大学 (senshu-u.ac.jp)
-        株式会社エルパ ：  ホーム | 株式会社エルパ（www.lpa.co.jp）
-        GitHub ： MamoruMoriai (mamoru_moriai) (github.com)
-        Qiita ： mamoru_moriai - Qiita
+      
         
       </article>
+      <ul class="articleContent">
+        <li><a href="https://www.senshu-u.ac.jp/education/faculty/network/">専修大学ネットワーク情報学部</a></li>
+        <li><a href="http://www.lpa.co.jp/">株式会社エルパ</a></li>
+        <li><a href="https://github.com/MamoruMoriai">GitHub</a></li>
+        <li><a href="https://qiita.com/mamoru_moriai">Qiita</a></li>
+      </ul>
     </div>
     
-    <div class="careerKeyword">
-      <label class="articleTitle">活かせる経験・知識・技術</label>
-      <ul class="">
+    <CareerDetail />
+    
+    <div class="careerKeyword article">
+      <div class="articleTitle">活かせる経験・知識・技術</div>
+      <ul class="articleContent">
         <li>オブジェクト指向を意識したプログラミング経験（デザインパターン等）</li>
         <li>C#/Java等の静的型付き言語による開発経験（計３年）</li>
         <li>社内制度の導入経験</li>
       </ul>
     </div>
     
-    <div class="qualifications">
-      <label class="articleTitle">業務経験のある技術 / 環境</label>
-      <ul class="">
+    <div class="qualifications article">
+      <div class="articleTitle">業務経験のある技術 / 環境</div>
+      <ul class="articleContent">
         <li></li>
         <li></li>
       </ul>
     </div>
     
-    <div class="qualifications">
-      <label class="articleTitle">業務外経験のある技術 / 環境</label>
-      <ul class="">
+    <div class="qualifications article">
+      <div class="articleTitle">業務外経験のある技術 / 環境</div>
+      <ul class="articleContent">
         <li></li>
         <li></li>
       </ul>
     </div>
     
-    <div class="qualifications">
-      <label class="articleTitle">保有資格</label>
-      <ul class="">
+    <div class="qualifications article">
+      <div class="articleTitle">保有資格</div>
+      <ul class="articleContent">
         <li>基本情報技術者試験（平成30年度春期合格）</li>
       </ul>
     </div>
     
-    <div class="publicRelations">
-      <label class="articleTitle">自己PR</label>
+    <div class="publicRelations article">
+      <div class="articleTitle">自己PR</div>
       
     </div>
     
@@ -68,31 +67,39 @@
 
 <style>
 
-  .careerSummary {
-    margin: auto;
+  .home {
     text-align: left;
-    width: 40%;
+  }
+
+  .article {
+    margin: 60px 0;
   }
   
   .articleTitle {
-    font-size: 1.5em;
+    margin: 5px auto;
+    text-align: left;
+    width: 45%;
+    font-size: 1.2em;
     font-weight: bold;
   }
   
   .articleContent {
-    
+    margin: 5px auto;
+    text-align: left;
+    width: 45%;
+    font-size: 1em;
   }
   
 </style>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import CareerDetail from '@/components/CareerDetail.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    CareerDetail
   }
 }
 </script>
