@@ -2,16 +2,33 @@
 
   <div class="container">
     <div class="row">
-      <div class="card btn" style="width: 200px;" v-for="item in careerDetails" :key="item.id" v-on:click="selectedCareerDetail()">
-        <img src="https://placehold.jp/250x200.png" class="card-img-top">
-        <div class="card-body">
-          <h5 class="card-title">{{ item.title }}</h5>
-          <p class="card-text">{{ item.fromDate }} ～ {{ item.toDate }}</p>
+    
+      <div v-show="open" class="card" style="width: 640px;">
+        <div class="modal_content">
+          <div v-on:click="closeModal" class="modal_contents_bg"></div>
+          <div class="modal-header">
+            <div class="card-title" style="font-size:1.5em;">{{ title }}</div>
+            <button v-on:click="closeModal" type="button" class="btn text-secondary" style="font-size:2em;">×</button>
+          </div>
+          <div class="modal-body">
+            <div class="card-text">{{ content }}</div>
+          </div>
         </div>
       </div>
+      
+      <div class="card" style="width: 200px;" v-for="item in careerDetails" :key="item.id">
+        <div class="btn" id="key" v-on:click="selectedCareerDetail($event);">
+          <img src="https://placehold.jp/250x200.png" class="card-img-top" v-bind:id="item.id">
+          <div class="card-body" v-bind:id="item.id">
+            <h5 class="card-title" v-bind:id="item.id">{{ item.title }}</h5>
+            <p class="card-text" v-bind:id="item.id">{{ item.fromDate }} ～ {{ item.toDate }}</p>
+          </div>
+        </div>
+      </div>
+      
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -22,7 +39,11 @@ export default {
   props: {},
   data() {
     return {
-      careerDetails: []
+      careerDetails: [],
+      open: false,
+      id: "",
+      title: "タイトル",
+      content: "コンテンツ",
     }
   },
   methods: {
@@ -35,8 +56,12 @@ export default {
         console.log(error)
       })
     },
-    selectedCareerDetail() {
-      console.log("クリックされたよ");
+    selectedCareerDetail(event) {
+      console.log(event.target.id)
+      this.open = true
+    },
+    closeModal() {
+      this.open = false;
     }
   },
   created() {
@@ -60,5 +85,6 @@ export default {
   .btn {
     padding: 0;
   }
+  
   
 </style>
