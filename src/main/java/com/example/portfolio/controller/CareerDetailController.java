@@ -30,8 +30,8 @@ public class CareerDetailController {
 	}
 	
 	@CrossOrigin
-	@PostMapping(value = "/test")
-	public CareerDetailEntity getSelectCareerDetail(@PathVariable("id") int id) {
+	@PostMapping(value = "/test/{id}")
+	public CareerDetailEntity getSelectCareerDetail(@PathVariable("id")int id) {
 		CareerDetailEntity careerDetail = careerDetailService.search(id);
 		return careerDetail;
 	}
@@ -43,8 +43,8 @@ public class CareerDetailController {
 	}
 	
 	@CrossOrigin
-	@DeleteMapping(value = "/test")
-	public void deleteCareerDetail(@PathVariable("id") int id) {
+	@DeleteMapping(value = "/test/{id}")
+	public void deleteCareerDetail(@PathVariable("id")int id) {
 		careerDetailService.deleteCareerDetail(id);
 	}
 	

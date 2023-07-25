@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
     
-      <div v-show="open" class="card" style="width: 640px;">
+      <div v-show="open" class="card" style="width: 640px; height: 300px;">
         <div class="modal_content">
           <div v-on:click="closeModal" class="modal_contents_bg"></div>
           <div class="modal-header">
@@ -57,7 +57,16 @@ export default {
       })
     },
     selectedCareerDetail(event) {
-      console.log(event.target.id)
+      this.id = event.target.id
+      const path = 'http://localhost:8080/test'
+      axios.post(path + "/" + this.id).then(response => {
+        this.careerDetail = response.data
+        this.id = this.careerDetail.id
+        this.title = this.careerDetail.title
+        this.content = this.careerDetail.content
+      }).catch(error => {
+        console.log(error)
+      })
       this.open = true
     },
     closeModal() {
