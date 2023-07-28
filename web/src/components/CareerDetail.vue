@@ -2,19 +2,6 @@
 
   <div class="container">
     <div class="row">
-    
-      <div v-show="open" class="card" style="width: 640px; height: 300px;">
-        <div class="modal_content">
-          <div v-on:click="closeModal" class="modal_contents_bg"></div>
-          <div class="modal-header">
-            <div class="card-title" style="font-size:1.5em;">{{ title }}</div>
-            <button v-on:click="closeModal" type="button" class="btn text-secondary" style="font-size:2em;">×</button>
-          </div>
-          <div class="modal-body">
-            <div class="card-text">{{ content }}</div>
-          </div>
-        </div>
-      </div>
       
       <div class="card" style="width: 200px;" v-for="item in careerDetails" :key="item.id">
         <div class="btn" id="key" v-on:click="selectedCareerDetail($event);">
@@ -26,7 +13,21 @@
         </div>
       </div>
       
+      <div v-show="open" class="card" id="modal">
+        <div class="show_modal">
+          <div v-on:click="closeModal"></div>
+          <div class="modal-header">
+            <div class="card-title" style="font-size:1.5em;">{{ title }}</div>
+            <button v-on:click="closeModal" type="button" class="btn text-secondary" style="font-size:2em;">×</button>
+          </div>
+          <div class="modal-body">
+            <div class="card-text">{{ content }}</div>
+          </div>
+        </div>
+      </div>
+      
     </div>
+    
   </div>
 
 </template>
@@ -59,7 +60,7 @@ export default {
     selectedCareerDetail(event) {
       this.id = event.target.id
       const path = 'http://localhost:8080/test'
-      axios.post(path + "/" + this.id).then(response => {
+      axios.get(path + "/" + this.id).then(response => {
         this.careerDetail = response.data
         this.id = this.careerDetail.id
         this.title = this.careerDetail.title
@@ -93,6 +94,15 @@ export default {
   
   .btn {
     padding: 0;
+  }
+  
+  #modal {
+    top: 100px;
+    position: fixed;
+    z-index: 1;
+    border: solid 1.5px;
+    width: 640px;
+    height: 380px;
   }
   
   

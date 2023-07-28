@@ -30,10 +30,16 @@ public class CareerDetailController {
 	}
 	
 	@CrossOrigin
-	@PostMapping(value = "/test/{id}")
+	@GetMapping(value = "/test/{id}")
 	public CareerDetailEntity getSelectCareerDetail(@PathVariable("id")int id) {
 		CareerDetailEntity careerDetail = careerDetailService.search(id);
 		return careerDetail;
+	}
+	
+	@CrossOrigin
+	@PostMapping(value = "/test")
+	public void createCareerDetail(@RequestBody CareerDetailEntity cde) {
+		careerDetailService.createCareerDetail(cde);
 	}
 	
 	@CrossOrigin
