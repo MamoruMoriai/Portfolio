@@ -7,7 +7,7 @@
 	<select id="search" resultType="com.example.portfolio.entity.CareerDetailEntity">
 		SELECT * FROM career_details WHERE id = #{id}
 	</select>
-	<select id="createCareerDetail" resultType="com.example.portfolio.entity.CareerDetailEntity">
+	<insert id="createCareerDetail" parameterType="com.example.portfolio.entity.CareerDetailEntity">
 		INSERT INTO career_details (
 			is_external,
 			from_date,
@@ -15,22 +15,23 @@
 			title,
 			content
 		) VALUES (
-			#{careerDetail.externalFlg},
-			#{careerDetail.fromDate},
-			#{careerDetail.toDate},
-			#{careerDetail.title},
-			#{careerDetail.content}
+			#{externalFlg},
+			#{fromDate},
+			#{toDate},
+			#{title},
+			#{content}
 		)
-	</select>
-	<select id="updateCareerDetail" resultType="com.example.portfolio.entity.CareerDetailEntity">
-		UPDATE career_details SET (
-			is_external = #{careerDetail.externalFlg},
-			from_date = #{careerDetail.fromDate},
-			to_date = #{careerDetail.toDate},
-			title = #{careerDetail.title},
-			content = #{careerDetail.content}
-		)
-	</select>
+	</insert>
+	<update id="updateCareerDetail" parameterType="com.example.portfolio.entity.CareerDetailEntity">
+		UPDATE career_details
+		SET 
+			is_external = #{externalFlg},
+			from_date = #{fromDate},
+			to_date = #{toDate},
+			title = #{title},
+			content = #{content}
+		WHERE id = #{id}
+	</update>
 	<select id="deleteCareerDetail" resultType="com.example.portfolio.entity.CareerDetailEntity">
 		DELETE FROM career_details WHERE id = #{id}
 	</select>

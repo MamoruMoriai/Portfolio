@@ -15,7 +15,7 @@ public interface CareerDetailMapper {
 	
 	CareerDetailEntity createCareerDetail(CareerDetailEntity careerDetail);
 	
-	CareerDetailEntity updateCareerDetail(CareerDetailEntity careerDetail);
+	void updateCareerDetail(CareerDetailEntity careerDetail);
 	
 	CareerDetailEntity deleteCareerDetail(int id);
 	

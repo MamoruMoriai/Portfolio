@@ -38,12 +38,13 @@ public class CareerDetailController {
 	
 	@CrossOrigin
 	@PostMapping(value = "/test")
-	public void createCareerDetail(@RequestBody CareerDetailEntity cde) {
+	public void createCareerDetail(@RequestBody CareerDetailEntity item) {
+		CareerDetailEntity cde = new CareerDetailEntity();
 		careerDetailService.createCareerDetail(cde);
 	}
 	
 	@CrossOrigin
-	@PutMapping(value = "/test")
+	@PutMapping(value = "/test/{id}")
 	public void updateCareerDetail(@RequestBody CareerDetailEntity cde) {
 		careerDetailService.updateCareerDetail(cde);
 	}
