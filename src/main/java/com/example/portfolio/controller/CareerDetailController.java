@@ -40,7 +40,7 @@ public class CareerDetailController {
 	@PostMapping(value = "/test")
 	public void createCareerDetail(@RequestBody CareerDetailEntity item) {
 		CareerDetailEntity cde = new CareerDetailEntity();
-		careerDetailService.createCareerDetail(cde);
+		careerDetailService.createCareerDetail(item);
 	}
 	
 	@CrossOrigin

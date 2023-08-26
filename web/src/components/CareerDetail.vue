@@ -2,6 +2,12 @@
 
   <div class="container">
     <div class="row">
+    
+      <div class="card" style="width: 200px; display: flex; justify-content: center;">
+        <div class="btn" v-on:click="createdEvent();">
+          <span class="text-secondary" style="font-size: 4em;">+</span>
+        </div>
+      </div>
       
       <div class="card" style="width: 200px;" v-for="item in careerDetails" :key="item.id">
         <div class="btn" id="key" v-on:click="selectedEvent($event);">
@@ -15,15 +21,18 @@
       
       <div v-show="open" class="card" id="modal">
       
-        <div v-show="!edit" class="show_modal">
+        <div v-show="!edit & !create" class="show_modal">
           <div v-on:click="closeModal"></div>
           <div class="modal-header">
             <div class="card-title" style="font-size:1.5em;">{{ careerDetailItem.title }}</div>
-            <button v-on:click="editMode" type="button" class="btn bg-secondary text-white" style="padding:5px;">編集</button>
+            <div class="icon">
+              <img src="@/assets/edit.png" id="editImg" v-on:click="editMode" alt="Edit Image" />
+            </div>
             <button v-on:click="closeModal" type="button" class="btn text-secondary" style="font-size:2em;">×</button>
           </div>
           <div class="modal-body">
             <div class="card-text">{{ careerDetailItem.fromDateString }} ～ {{ careerDetailItem.toDateString }}</div>
+            <br>
             <div class="card-text">{{ careerDetailItem.content }}</div>
           </div>
         </div>
@@ -33,7 +42,6 @@
           <div class="form">
             <div class="modal-header">
               <input type="text" v-model="this.careerDetailItem.title" placeholder="">
-              <button v-on:click="showMode" type="button" class="btn bg-secondary text-white" style="padding:5px;">表示</button>
               <button v-on:click="closeModal" type="button" class="btn text-secondary" style="font-size:2em;">×</button>
             </div>
             <div class="modal-body">
@@ -41,8 +49,27 @@
               <input type="date" v-model="this.formattedToDate">
               <textarea class="careerDetailTextarea" style="margin:10px;" v-model="careerDetailItem.content" rows="8" cols="70"></textarea>
               <div class="formButton">
-                <button v-on:click="showMode" type="button" class="cancelButton btn bg-secondary text-white">キャンセル</button>
-                <button v-on:click="updateCareerDetail" type="button" class="updateButton btn bg-success text-white">更新</button>
+                <button v-on:click="showMode" type="button" class="button btn bg-secondary text-white">キャンセル</button>
+                <button v-on:click="updateCareerDetail" type="button" class="button btn bg-success text-white">更新</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div v-show="create" class="show_modal">
+          <div v-on:click="closeModal"></div>
+          <div class="form">
+            <div class="modal-header">
+              <input type="text" v-model="this.careerDetailItem.title" placeholder="タイトルを入力">
+              <button v-on:click="closeModal" type="button" class="btn text-secondary" style="font-size:2em;">×</button>
+            </div>
+            <div class="modal-body">
+              <input type="date" v-model="this.formattedFromDate"> ～ 
+              <input type="date" v-model="this.formattedToDate">
+              <textarea class="careerDetailTextarea" style="margin:10px;" v-model="careerDetailItem.content" placeholder="コンテンツを入力" rows="8" cols="70"></textarea>
+              <div class="formButton">
+                <button v-on:click="closeModal" type="button" class="button btn bg-secondary text-white">キャンセル</button>
+                <button v-on:click="createCareerDetail" type="button" class="button btn bg-success text-white">登録</button>
               </div>
             </div>
           </div>
@@ -66,14 +93,15 @@ export default {
     return {
       careerDetails: [],
       open: false,
+      create: false,
       edit: false,
       careerDetailItem: {
         id: "",
         externalFlg: true,
         fromDate: null,
-        fromDateString: '',
+        fromDateString: "",
         toDate: null,
-        toDateString: '',
+        toDateString: "",
         title: "",
         content: ""
       },
@@ -113,6 +141,24 @@ export default {
       })
       this.open = true
     },
+    createdEvent() {
+      this.createMode()
+      this.open = true
+    },
+    createCareerDetail() {
+      this.careerDetailItem.fromDate = this.formattedFromDate;
+      this.careerDetailItem.toDate = this.formattedToDate;
+      const path = 'http://localhost:8080/test'
+      console.log(this.careerDetailItem)
+      axios.post(path, this.careerDetailItem)
+      .then(
+        alert('登録しました。')
+      )
+      .catch(error => {
+        console.error('Error creating resource:', error)
+      })
+      this.showMode()
+    },
     updateCareerDetail() {
       const path = 'http://localhost:8080/test/${this.careerDetailItem.id}'
       console.log(this.careerDetailItem)
@@ -143,6 +189,9 @@ export default {
         this.formattedToDate = `${year}-${month}-${day}`
       }
     },
+    createMode() {
+      this.create = true
+    },
     editMode() {
       this.edit = true
     },
@@ -150,6 +199,17 @@ export default {
       this.edit = false
     },
     closeModal() {
+      this.showMode()
+      this.careerDetailItem.id = ""
+      this.careerDetailItem.fromDate = null
+      this.careerDetailItem.fromDateString = ""
+      this.careerDetailItem.toDate = null
+      this.careerDetailItem.toDateString = ""
+      this.careerDetailItem.title = ""
+      this.careerDetailItem.content = ""
+      this.formattedFromDate = ""
+      this.formattedToDate = ""
+      this.create = false
       this.open = false
     }
   },
@@ -184,19 +244,25 @@ export default {
     height: 480px;
   }
   
+  #editImg {
+    width: 20px;
+    height: 20px;
+  }
+  
   .formButton {
     text-align:right;
   }
   
-  .updateButton {
+  .icon {
+    padding:5px;
+    margin:5px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .button {
     padding:10px;
     margin:10px;
   }
-  
-  .cancelButton {
-    padding:10px;
-    margin:10px;
-  }
-  
   
 </style>
