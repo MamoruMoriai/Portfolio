@@ -37,7 +37,6 @@ public class CareerDetailService {
 	}
 	
 	public void updateCareerDetail(CareerDetailEntity cde) {
-		
 		careerDetailMapper.updateCareerDetail(cde);
 	}
 	

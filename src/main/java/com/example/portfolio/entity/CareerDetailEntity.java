@@ -9,7 +9,7 @@ public class CareerDetailEntity {
 
 	// テーブルカラム
 	private Integer id;
-	private Boolean externalFlg;
+	private boolean externalFlg;
 	private Date fromDate;
 	private Date toDate;
 	private String title;

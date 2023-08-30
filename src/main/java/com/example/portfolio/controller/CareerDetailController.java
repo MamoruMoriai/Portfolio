@@ -39,7 +39,6 @@ public class CareerDetailController {
 	@CrossOrigin
 	@PostMapping(value = "/test")
 	public void createCareerDetail(@RequestBody CareerDetailEntity item) {
-		CareerDetailEntity cde = new CareerDetailEntity();
 		careerDetailService.createCareerDetail(item);
 	}
 	

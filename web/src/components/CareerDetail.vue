@@ -3,10 +3,8 @@
   <div class="container">
     <div class="row">
     
-      <div class="card" style="width: 200px; display: flex; justify-content: center;">
-        <div class="btn" v-on:click="createdEvent();">
-          <span class="text-secondary" style="font-size: 4em;">+</span>
-        </div>
+      <div class="card btn" v-on:click="createdEvent();" style="width: 200px; display: flex; justify-content: center;">
+        <span class="text-secondary" style="font-size: 4em;">+</span>
       </div>
       
       <div class="card" style="width: 200px;" v-for="item in careerDetails" :key="item.id">
@@ -31,6 +29,9 @@
             <button v-on:click="closeModal" type="button" class="btn text-secondary" style="font-size:2em;">×</button>
           </div>
           <div class="modal-body">
+            <div v-show="!careerDetailItem.externalFlg">社外業務</div>
+            <div v-show="careerDetailItem.externalFlg">社内業務</div>
+            <br>
             <div class="card-text">{{ careerDetailItem.fromDateString }} ～ {{ careerDetailItem.toDateString }}</div>
             <br>
             <div class="card-text">{{ careerDetailItem.content }}</div>
@@ -41,11 +42,15 @@
           <div v-on:click="closeModal"></div>
           <div class="form">
             <div class="modal-header">
-              <input type="text" v-model="this.careerDetailItem.title" placeholder="">
+              <input type="text" v-model="this.careerDetailItem.title" style="margin-left: 10px; font-size: 1.6em;">
               <button v-on:click="closeModal" type="button" class="btn text-secondary" style="font-size:2em;">×</button>
             </div>
             <div class="modal-body">
-              <input type="date" v-model="this.formattedFromDate"> ～ 
+              <div>
+                <label><input type="radio" v-model="careerDetailItem.externalFlg" value="true" style="margin-left: 10px;"> 社外業務 </label>
+                <label><input type="radio" v-model="careerDetailItem.externalFlg" value="false" style="margin-left: 10px;"> 社内業務 </label>
+              </div>
+              <input type="date" v-model="this.formattedFromDate" style="margin-left: 10px;"> ～ 
               <input type="date" v-model="this.formattedToDate">
               <textarea class="careerDetailTextarea" style="margin:10px;" v-model="careerDetailItem.content" rows="8" cols="70"></textarea>
               <div class="formButton">
@@ -60,14 +65,19 @@
           <div v-on:click="closeModal"></div>
           <div class="form">
             <div class="modal-header">
-              <input type="text" v-model="this.careerDetailItem.title" placeholder="タイトルを入力">
+              <input type="text" v-model="this.careerDetailItem.title" placeholder="タイトルを入力" style="margin-left: 10px; font-size: 1.6em;">
               <button v-on:click="closeModal" type="button" class="btn text-secondary" style="font-size:2em;">×</button>
             </div>
             <div class="modal-body">
-              <input type="date" v-model="this.formattedFromDate"> ～ 
+              <div>
+                <label><input type="radio" v-model="careerDetailItem.externalFlg" value="true" style="margin-left: 10px;"> 社外業務 </label>
+                <label><input type="radio" v-model="careerDetailItem.externalFlg" value="false" style="margin-left: 10px;"> 社内業務 </label>
+              </div>
+              <input type="date" v-model="this.formattedFromDate" style="margin-left: 10px;"> ～ 
               <input type="date" v-model="this.formattedToDate">
               <textarea class="careerDetailTextarea" style="margin:10px;" v-model="careerDetailItem.content" placeholder="コンテンツを入力" rows="8" cols="70"></textarea>
               <div class="formButton">
+                <button v-on:click="deleteCareerDetail" type="button" class="button btn bg-danger text-white">削除</button>
                 <button v-on:click="closeModal" type="button" class="button btn bg-secondary text-white">キャンセル</button>
                 <button v-on:click="createCareerDetail" type="button" class="button btn bg-success text-white">登録</button>
               </div>
@@ -97,7 +107,7 @@ export default {
       edit: false,
       careerDetailItem: {
         id: "",
-        externalFlg: true,
+        externalFlg: null,
         fromDate: null,
         fromDateString: "",
         toDate: null,
@@ -128,6 +138,7 @@ export default {
       axios.get(path + "/" + id).then(response => {
         this.careerDetail = response.data
         this.careerDetailItem.id = this.careerDetail.id
+        this.careerDetailItem.externalFlg = this.careerDetail.externalFlg
         this.careerDetailItem.fromDate = this.careerDetail.fromDate
         this.careerDetailItem.fromDateString = this.careerDetail.fromDateString
         this.careerDetailItem.toDate = this.careerDetail.toDate
@@ -170,6 +181,18 @@ export default {
         console.error('Error updating resource:', error)
       })
       this.showMode()
+    },
+    deleteCareerDetail(id) {
+      const path = 'http://localhost:8080/test'
+      console.log(this.careerDetailItem)
+      axios.delete(path + "/" + id)
+      .then(
+        alert('削除しました。')
+      )
+      .catch(error=>{
+        console.log('Error deleting resource:', error)
+      })
+      this.closeModal()
     },
     formatFromDate() {
       const parts = this.careerDetailItem.fromDateString.split("/")

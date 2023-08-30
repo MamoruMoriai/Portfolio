@@ -32,7 +32,7 @@
 			content = #{content}
 		WHERE id = #{id}
 	</update>
-	<select id="deleteCareerDetail" resultType="com.example.portfolio.entity.CareerDetailEntity">
+	<delete id="deleteCareerDetail" parameterType="com.example.portfolio.entity.CareerDetailEntity">
 		DELETE FROM career_details WHERE id = #{id}
-	</select>
+	</delete>
 </mapper>
